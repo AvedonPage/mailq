@@ -18,7 +18,7 @@ using System.Xml.Serialization;
     
  */
 
-namespace Gopi
+namespace MailLib
 {
     /// <summary>
     /// Represents a serializable mail message.
@@ -77,12 +77,12 @@ namespace Gopi
             xml.Load(reader);
 
             // Properties
-            XmlNode rootNode = GetConfigSection(xml, "SerializableMailMessage/MailMessage");
+            XmlNode rootNode = GetConfigSection(xml, "MailMessage");
             this.Email.IsBodyHtml = Convert.ToBoolean(rootNode.Attributes["IsBodyHtml"].Value);
             this.Email.Priority = (MailPriority)Convert.ToInt16(rootNode.Attributes["Priority"].Value);
 
             // From
-            XmlNode fromNode = GetConfigSection(xml, "SerializableMailMessage/MailMessage/From");
+            XmlNode fromNode = GetConfigSection(xml, "MailMessage/From");
             string fromDisplayName = string.Empty;
             if (fromNode.Attributes["DisplayName"] != null)
                 fromDisplayName = fromNode.Attributes["DisplayName"].Value;
@@ -90,7 +90,7 @@ namespace Gopi
             this.Email.From = fromAddress;
 
             // To
-            XmlNode toNode = GetConfigSection(xml, "SerializableMailMessage/MailMessage/To/Addresses");
+            XmlNode toNode = GetConfigSection(xml, "MailMessage/To/Addresses");
             foreach (XmlNode node in toNode.ChildNodes)
             {
                 string toDisplayName = string.Empty;
@@ -101,7 +101,7 @@ namespace Gopi
             }
 
             // CC
-            XmlNode ccNode = GetConfigSection(xml, "SerializableMailMessage/MailMessage/CC/Addresses");
+            XmlNode ccNode = GetConfigSection(xml, "MailMessage/CC/Addresses");
             if (ccNode != null)
             {
                 foreach (XmlNode node in ccNode.ChildNodes)
@@ -115,7 +115,7 @@ namespace Gopi
             }
 
             // Bcc
-            XmlNode bccNode = GetConfigSection(xml, "SerializableMailMessage/MailMessage/Bcc/Addresses");
+            XmlNode bccNode = GetConfigSection(xml, "MailMessage/Bcc/Addresses");
             if (bccNode != null)
             {
                 foreach (XmlNode node in bccNode.ChildNodes)
@@ -129,15 +129,15 @@ namespace Gopi
             }
 
             // Subject
-            XmlNode subjectNode = GetConfigSection(xml, "SerializableMailMessage/MailMessage/Subject");
+            XmlNode subjectNode = GetConfigSection(xml, "MailMessage/Subject");
             this.Email.Subject = subjectNode.InnerText;
 
             // Body
-            XmlNode bodyNode = GetConfigSection(xml, "SerializableMailMessage/MailMessage/Body");
+            XmlNode bodyNode = GetConfigSection(xml, "MailMessage/Body");
             this.Email.Body = bodyNode.InnerText;
 
             // ReplyTo
-            XmlNode replyToNode = GetConfigSection(xml, "SerializableMailMessage/MailMessage/ReplyTo/Addresses");
+            XmlNode replyToNode = GetConfigSection(xml, "MailMessage/ReplyTo/Addresses");
             if (replyToNode != null)
             {
                 foreach (XmlNode node in replyToNode.ChildNodes)
@@ -151,7 +151,7 @@ namespace Gopi
             }
 
             // Sender
-            XmlNode senderNode = GetConfigSection(xml, "SerializableMailMessage/MailMessage/Sender");
+            XmlNode senderNode = GetConfigSection(xml, "MailMessage/Sender");
             if (senderNode != null)
             {
                 string senderDisplayName = string.Empty;
@@ -162,7 +162,7 @@ namespace Gopi
             }
 
             // Attachments
-            XmlNode attachmentsNode = GetConfigSection(xml, "SerializableMailMessage/MailMessage/Attachments");
+            XmlNode attachmentsNode = GetConfigSection(xml, "MailMessage/Attachments");
             if (attachmentsNode != null)
             {
                 foreach (XmlNode node in attachmentsNode.ChildNodes)
