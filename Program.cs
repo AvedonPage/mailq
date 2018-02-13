@@ -20,6 +20,11 @@ namespace MailQ
             var connectionString = configuration["ConnectionString"];
             var qName = configuration["qName"];
 
+            if (connectionString == null ||
+                qName == null) {
+                    throw new Exception("Please define ConnectionString and qName environment variables");
+                }
+
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
             CloudQueue queue = queueClient.GetQueueReference(qName);
