@@ -82,7 +82,7 @@ namespace MailSender
 
             await queue.AddMessageAsync(new CloudQueueMessage(xmlEmail));
 
-            Console.WriteLine("Email exported:");
+            Console.WriteLine("Email queued for delivery.");
 
         }
     }

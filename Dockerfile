@@ -3,7 +3,7 @@ WORKDIR /app
 
 COPY . ./
 
-WORKDIR /app/MailQ/MailQ
+WORKDIR /app/MailQ
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
 ENTRYPOINT ["dotnet", "out/MailQ.dll"]
