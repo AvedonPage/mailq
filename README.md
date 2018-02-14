@@ -1,7 +1,7 @@
 Simple Azure Storage Mail Queue Processor
 -----------------------------------------
 
-This repository contains a simple service that can be used to process serialized `System.Net.Mail.MailMessage` objects from an [Azure Storage Queue](https://azure.microsoft.com/en-us/services/storage/queues/). 
+This repository contains a simple service that can be used to process serialized `System.Net.Mail.MailMessage` objects from an [Azure Storage Queue](https://azure.microsoft.com/en-us/services/storage/queues/). The applications and utility library are written using .NET Core 2.0.
 
 When organizations move web applications to the cloud, they often look to hosting environments such as Azure [Web Apps](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-overview). A Web App will typically not have access to the on-prem network unless steps are taken to connect it using either an [App Service Environment](https://docs.microsoft.com/en-us/azure/app-service/environment/intro) or [Web App Virtual Network integration](https://docs.microsoft.com/en-us/azure/app-service/web-sites-integrate-with-vnet) in combination with Express Route or VPN connection. Often the applications will need to send email to users and when the applications were hosted on-prem, it was possible use a locally configured SMTP relay. In the cloud, the application may not have access to this relay and a simple task like sending email becomes more complicated. There are tools such as [SendGrid](https://sendgrid.com/) that can be leveraged but for some organizations (e.g., Government Agencies) use of such services may break compliance with [TIC](https://www.dhs.gov/trusted-internet-connections) rules.
 
@@ -10,7 +10,7 @@ Another option is to have the Web App enqueue mail messages on a storage queue i
 The `MailQ` application is available as [Docker image](https://hub.docker.com/r/hansenms/mailq/) and it can be run with a command line:
 
 ```
-sudo docker run -e ConnectionString='<Azure Storage Account Connection String>' -e MailQueueName='<Name of Queue>' -e SmtpServer='<SMTP domainName>' hansenms/mailq
+docker run -e ConnectionString='<Azure Storage Account Connection String>' -e MailQueueName='<Name of Queue>' -e SmtpServer='<SMTP domainName>' hansenms/mailq
 ```
 
 There are several ways it can be deployed. One option would be to run this Docker container directly on the on-prem network, another would be in a virtual network that is peered with the on-prem network through VPN connections or Express Route. The illustration below shows both options. 
